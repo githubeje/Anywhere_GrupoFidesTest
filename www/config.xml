@@ -130,7 +130,7 @@
 	<gap:plugin name="cordova-android-support-gradle-release"  	source="npm" version="14.3" />
 	<gap:plugin name="cordova-plugin-whitelist"  				source="npm" version="1.3.3" />
 		
-	<gap:plugin name="cordova-plugin-whitelist" source="npm"  />
+	<!-- <gap:plugin name="cordova-plugin-whitelist" source="npm"  /> -->
     		<allow-intent href="http://*/*" />
     		<allow-intent href="https://*/*" />
 		<allow-navigation href="http://*/*" />
