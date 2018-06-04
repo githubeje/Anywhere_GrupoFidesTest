@@ -126,7 +126,7 @@
 	<gap:plugin name="cordova-plugin-pushplugin" 				source="npm" version="2.6.3" /> 
     <gap:plugin name="cordova-plugin-geolocation" 				source="npm" version="4.0.1"/>
     <gap:plugin name="cordova-plugin-device" 					source="npm"  />
-	<gap:plugin name="cordova-plugin-appversion"  				source="npm" version="10.0"  />
+	<gap:plugin name="cordova-plugin-appversion"  				source="npm"  />
 	<gap:plugin name="cordova-android-support-gradle-release"  	source="npm" version="14.3" />
 	<gap:plugin name="cordova-plugin-whitelist"  				source="npm" version="1.3.3" />
 		
