@@ -17,10 +17,14 @@ var registred = false;
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
-function onDeviceReady() {
-	//registraGCM();
+$(document).on('pageinit', function() {
 	config = new Config();
 	senderId = config.getIdSender();
+});
+ 
+function onDeviceReady() {
+	//registraGCM();
+
 }
 
 function registraGCM() {
