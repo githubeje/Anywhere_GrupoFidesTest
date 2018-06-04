@@ -102,7 +102,8 @@ $("div[data-role='page']").live('pageshow',function(event, ui){
     
     var login = new Login();
     login.getUsuario(function(usuario) {
-        tokenHandler2(usuario.rutT,8);
+    	console.log("tokenHandler2(usuario.rutT,8);");
+        //tokenHandler2(usuario.rutT,8);
     });
 
     
