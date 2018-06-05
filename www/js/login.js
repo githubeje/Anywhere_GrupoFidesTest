@@ -12,25 +12,26 @@ var login;
 	});
 	
 	$("#login").live( "pageshow", function() {
-		/*pagebeforecreate*/
-		console.log("pagebeforecreate[begin]");
-		var login = new Login();
-		$("#divUserContainer").html(login.getUserMethod());
-		console.log("pagebeforecreate[end]");
-		/*pagebeforecreate end*/
-		
-		var conf = new Config();
-		$("#clave").val(conf.getStaticClave());
-		
-		if(conf.dropDatabasesOnInit()) {
-			console.log("[droping databse on init]");
-			var sql = new MapSQL();
-			sql.delAll();
+		$(document).ready(function(){
+			/*pagebeforecreate*/
+			console.log("pagebeforecreate[begin]");
+			var login = new Login();
+			$("#divUserContainer").html(login.getUserMethod());
+			console.log("pagebeforecreate[end]");
+			/*pagebeforecreate end*/
 			
-			var sql = new MapSQL("cacheTripletaSelector");
-			sql.delAll();
-		};
-		
+			var conf = new Config();
+			$("#clave").val(conf.getStaticClave());
+			
+			if(conf.dropDatabasesOnInit()) {
+				console.log("[droping databse on init]");
+				var sql = new MapSQL();
+				sql.delAll();
+				
+				var sql = new MapSQL("cacheTripletaSelector");
+				sql.delAll();
+			};
+		});
 	});
 	
 	document.addEventListener("deviceready", onDeviceReady, false);
