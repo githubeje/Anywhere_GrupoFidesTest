@@ -17,7 +17,7 @@ var registred = false;
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
-$(document).on('pageinit', function() {
+$("#login").live( "pageshow", function() {
 	config = new Config();
 	senderId = config.getIdSender();
 });
