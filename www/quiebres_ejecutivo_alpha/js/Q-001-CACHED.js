@@ -113,7 +113,7 @@ $('#precio_principal').bind( 'pageshow',function(event) {
 							objAnywhere:objAnywhere,
 						});
 						
-						internalSave2();
+						//internalSave2();
 					}
 				}
 				anySaveObject.save({
@@ -202,18 +202,20 @@ $('#precio_principal').bind( 'pageshow',function(event) {
 						
 					},
 					function(data,status,jqXHR) {
+						/*/
 						console.log("TerminoC_ "+cantOk);
 						cantOk+=1;			
 						
 						if(cantTotal == (cantOk + cantError ) ) {
 							//guardaProtocolo();
-							/*
+							
 							var popup = new MasterPopup();
 							popup.alertPopup(nombreModulo, "Datos guardados correctamente", {"funcYes":  function() {
 							    $.mobile.changePage( "index.html", { transition: "flip"} );
 							}});
-							*/
+						
 						}
+						*/
 					});
 			});
 			

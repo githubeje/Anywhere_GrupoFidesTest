@@ -58,7 +58,7 @@ $('#quiebrestock_principal').bind( 'pagebeforecreate',function(event) {
 		
 		$("#combos").html(objAnywhere.getHtml());
 		$("#combosquiebre").html(objAnywhere.getHtmlSegQuiebre(sessionStorage.getItem("rutT")));
-		objAnywhere.setProductosQuebrados(sessionStorage.getItem("rutT"));
+		objAnywhere.setProductosQuebrados(sessionStorage.getItem("rutT"),"PROT-4");
 	}
 });
 

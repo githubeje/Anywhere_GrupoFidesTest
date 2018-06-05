@@ -1728,31 +1728,31 @@ function AnywhereManager() {
 }
 
 
-class AnySave {
+function AnySave() {
 	
-	constructor() {
-		this.pointAddress = 'No definido';
-		this.stockImage = 'Sin Imagen';
-		this.posLatitud = null;
-		this.posLongitud = null;
-		this.saveInt = false;
-		this.nombreModulo = "nn";
-		this.formularioID = null;
-		this.message = null;
-		
-		var geo = new GeoGlobal();
-		geo.refreshGeo(function(lat, lo) {
-			AnySave.posLatitud = lat;
-			AnySave.posLongitud = lo;
+	
+	this.pointAddress = 'No definido';
+	this.stockImage = 'Sin Imagen';
+	this.posLatitud = null;
+	this.posLongitud = null;
+	this.saveInt = false;
+	this.nombreModulo = "nn";
+	this.formularioID = null;
+	this.message = null;
+	
+	var geo = new GeoGlobal();
+	geo.refreshGeo(function(lat, lo) {
+		AnySave.posLatitud = lat;
+		AnySave.posLongitud = lo;
 
-		}, function(point) {
-			AnySave.pointAddress = point;
-		});
-	}
+	}, function(point) {
+		AnySave.pointAddress = point;
+	});
+	
 
 
 
-	save(params) {
+	AnySave.prototype.save = function(params) {
 		console.log("save v9.0.1");
 		if(!this.saveInt) {
 			this.saveInt = true;
@@ -1769,7 +1769,7 @@ class AnySave {
 		}
 	}
 
-	saveTwo(params) {
+	AnySave.prototype.saveTwo = function(params) {
 		console.log("saveTwo v9.0.0");
 		
 		 if ($('#'+params.formName).validate({
@@ -1801,7 +1801,7 @@ class AnySave {
 
 
 
-	saveThree(params) {
+	AnySave.prototype.saveThree = function(params) {
 		console.log("AnySave.saveThree v9.0.0");
 		
 		if(!this.checkRadios()) {
@@ -1861,7 +1861,7 @@ class AnySave {
 		anySave.saveClaseWeb(true, "anywhere_movil_restanywhere", "AnySave", "add", params);
 	}
 	
-	checkRadios() {
+	AnySave.prototype.checkRadios = function() {
 		var ok = true;
 		
 		var namesRadio = {};
@@ -1893,7 +1893,7 @@ class AnySave {
 		return ok;
 	}
 	
-	setLastData(data){
+	AnySave.prototype.setLastData = function(data){
 		if($("#lastMessageSave").length > 0) {
 			$("#lastMessageSave").remove();
 		}
@@ -1901,55 +1901,56 @@ class AnySave {
 		$("body").append("<input type='hidden' id='lastMessageSave' value='"+data+"' />");
 	}
 	
-	getLastData(){
+	AnySave.prototype.getLastData = function(){
 		return $("#lastMessageSave").val();
 	}
 }
 
-class FunctionTool {
-	static evalFunction(func) {
-		if(func!=null) {
-			console.log("evalFunction()");
-			if(typeof func == 'function') {
-				var f = func;
-				f();
-			}
-		}
-	};
+function FunctionTool() {
+	
 }
 
-class Protocolo {
-	
-	static guardaProtocolo(localJson) {
-		if(localJson==null) {
-			localJson = {};
-		}
-		
-		if(localJson.objAnywhere != null) { 
-		
-			 var any = new Anywhere();
-			 var vUrl = any.getWSAnywhere_context() + "services/alertasvarias/guardaprotocolo/";
-			 var anySave = new AnywhereManager();
-			 
-			 var idUsuario = sessionStorage.getItem("rutT");
-	 		 var fSuccess = null;
-	 		 if(localJson.success != null) {
-	 			fSuccess=eval("("+localJson.success+")")
-	 		 }
-			 anySave.save(vUrl,  { a1: idUsuario,
-					a2: objAnywhere.getCliente(),
-					a3: objAnywhere.getCadena(),
-					a4: objAnywhere.getLocal(),
-					a5: objAnywhere.getCategoria(),
-					a6: objAnywhere.getProducto(),
-					num_val1:localJson.moduloId,
-				},
-				function(data,status,jqXHR,fSuccess) { 
-					if(fSuccess != null) {
-						fSuccess(data,status,jqXHR);
-					}
-				});
+FunctionTool.evalFunction = function(func) {
+	if(func!=null) {
+		console.log("evalFunction()");
+		if(typeof func == 'function') {
+			var f = func;
+			f();
 		}
 	}
+};
+
+function Protocolo() {
 }
 
+Protocolo.guardaProtocolo = function(localJson) {
+	if(localJson==null) {
+		localJson = {};
+	}
+	
+	if(localJson.objAnywhere != null) { 
+	
+		 var any = new Anywhere();
+		 var vUrl = any.getWSAnywhere_context() + "services/alertasvarias/guardaprotocolo/";
+		 var anySave = new AnywhereManager();
+		 
+		 var idUsuario = sessionStorage.getItem("rutT");
+ 		 var fSuccess = null;
+ 		 if(localJson.success != null) {
+ 			fSuccess=eval("("+localJson.success+")")
+ 		 }
+		 anySave.save(vUrl,  { a1: idUsuario,
+				a2: objAnywhere.getCliente(),
+				a3: objAnywhere.getCadena(),
+				a4: objAnywhere.getLocal(),
+				a5: objAnywhere.getCategoria(),
+				a6: objAnywhere.getProducto(),
+				num_val1:localJson.moduloId,
+			},
+			function(data,status,jqXHR,fSuccess) { 
+				if(fSuccess != null) {
+					fSuccess(data,status,jqXHR);
+				}
+			});
+	}
+}

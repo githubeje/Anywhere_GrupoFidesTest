@@ -161,14 +161,12 @@ function confirmWJavasript(asunto, msg, metodoJavascript){
 	});
 }
 
-class MasterPopup{
+function MasterPopup() {
 	
+	this.popupIdentify = null;
+
 	
-	constructor() {
-		this.popupIdentify = null;
-	}
-	
-	createPopup(id, asunto, msg, url1, url2, metodoJavascript, headerClose, omitButtonTrue, omitButtonFalse, jsonProps) {
+	MasterPopup.prototype.createPopup = function(id, asunto, msg, url1, url2, metodoJavascript, headerClose, omitButtonTrue, omitButtonFalse, jsonProps) {
 		console.log("[MasterPopup.createPopup]");
 		
 		var funcYes = null;
@@ -267,7 +265,7 @@ class MasterPopup{
 		$(this.popupIdentify).simpledialog2(configuration);
 	};
 	
-	makeId()  {
+	MasterPopup.prototype.makeId = function()  {
 		console.log("[MasterPopup.makeid]");
 	    var text = "";
 	    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -278,28 +276,28 @@ class MasterPopup{
 	    return text;
 	};
 	
-	bloqPopup(asunto, msg , configura) {
+	MasterPopup.prototype.bloqPopup = function(asunto, msg , configura) {
 		console.log("[MasterPopup.bloqPopup]");
 		this.createPopup(null, asunto, msg, null, null, null, false,true,true, configura);
 	};
 	
-	alertPopup(asunto, msg, configura) {
+	MasterPopup.prototype.alertPopup = function(asunto, msg, configura) {
 		console.log("[MasterPopup.alertPopup]");
 		this.createPopup(null, asunto, msg, null, null, null, false, false, true, configura);
 	};
 	
-	confirmPopup(asunto, msg, configura) {
+	MasterPopup.prototype.confirmPopup = function(asunto, msg, configura) {
 		console.log("[MasterPopup.confirmPopup]");
 		this.createPopup(null, asunto, msg, null, null, null, false, false, false, configura);
 	};
 	
-	closePopup() {
+	MasterPopup.prototype.closePopup = function() {
 		console.log("[MasterPopup.closePopup]");
 		
 		$(this.popupIdentify).simpledialog2('close');
 	};
 	
-	ACTION_REFRESHPAGE()
+	MasterPopup.prototype.ACTION_REFRESHPAGE = function()
 	{
 	    $.mobile.changePage(
 	    	    window.location.href,
