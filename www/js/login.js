@@ -4,28 +4,30 @@ var rut;
 var login;
 
 
-/* HOOK EVENTS */
-	 
-	
-	$("#login").live( "pagebeforecreate", function() {
+	/* HOOK EVENTS */
+	jQuery(document).ready(function($) {
+		var login = new Login();
+	    login.getUsuario(function(usuario) {
+	    	console.log("tokenHandler2(usuario.rutT,8);");
+	        //tokenHandler2(usuario.rutT,8);
+	    });
+	    
+		/*pagebeforecreate*/
+		console.log("pagebeforecreate[begin]");
+		var login = new Login();
+		$("#divUserContainer").html(login.getUserMethod());
+		console.log("pagebeforecreate[end]");
+		/*pagebeforecreate end*/
+	});
 
+	$("#login").live( "pagebeforecreate", function() {
+			
 	});
 	
 	$("#login").live( "pageshow", function() {
-	    (function($) {
-	    	var login = new Login();
-		    login.getUsuario(function(usuario) {
-		    	console.log("tokenHandler2(usuario.rutT,8);");
-		        //tokenHandler2(usuario.rutT,8);
-		    });
-		    
-			/*pagebeforecreate*/
-			console.log("pagebeforecreate[begin]");
-			var login = new Login();
-			$("#divUserContainer").html(login.getUserMethod());
-			console.log("pagebeforecreate[end]");
-			/*pagebeforecreate end*/
-			
+	    
+		(function($) {
+ 			
 			var conf = new Config();
 			$("#clave").val(conf.getStaticClave());
 			
@@ -38,6 +40,7 @@ var login;
 				sql.delAll();
 			};
 	    });
+	 
 	});
 	
 	$( document ).live("#login", "pageinit", function() {
