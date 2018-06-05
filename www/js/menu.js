@@ -858,6 +858,7 @@ $("#menu_principal").bind("pageshow",function() {
 		});
 	});
 	
+	console.log("registraGCM()");
 	registraGCM();
 	//initDoMark();
 });
