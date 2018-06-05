@@ -12,7 +12,7 @@ var login;
 	});
 	
 	$("#login").live( "pageshow", function() {
-		jQuery(window).load(function () {
+		$(document).ready(function () {
 		    var login = new Login();
 		    login.getUsuario(function(usuario) {
 		    	console.log("tokenHandler2(usuario.rutT,8);");
