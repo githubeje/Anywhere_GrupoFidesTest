@@ -5,7 +5,8 @@ var login;
 
 
 	/* HOOK EVENTS */
-	jQuery(document).ready(function($) {
+$(document).on('pageinit', function() {
+
 		var login = new Login();
 	    login.getUsuario(function(usuario) {
 	    	console.log("tokenHandler2(usuario.rutT,8);");
@@ -18,15 +19,15 @@ var login;
 		$("#divUserContainer").html(login.getUserMethod());
 		console.log("pagebeforecreate[end]");
 		/*pagebeforecreate end*/
-	});
+
+});
 
 	$("#login").live( "pagebeforecreate", function() {
-			
+
 	});
 	
 	$("#login").live( "pageshow", function() {
-	    
-		(function($) {
+	     
  			
 			var conf = new Config();
 			$("#clave").val(conf.getStaticClave());
@@ -39,7 +40,7 @@ var login;
 				var sql = new MapSQL("cacheTripletaSelector");
 				sql.delAll();
 			};
-	    });
+ 
 	 
 	});
 	

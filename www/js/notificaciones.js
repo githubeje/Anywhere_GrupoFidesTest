@@ -16,10 +16,11 @@ var facingImage = "";
 var registred = false;
 
 document.addEventListener("deviceready", onDeviceReady, false);
-jQuery(document).ready(function($) {
+(function($) {
 	config = new Config();
 	senderId = config.getIdSender();
-})
+});
+
 $("#login").live( "pageshow", function() {
  
 });
