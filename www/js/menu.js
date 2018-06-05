@@ -838,6 +838,7 @@ $("#menu_principal").bind("pageshow",function() {
 		var jSonDevice = info.getDeviceInfo(function(jSonDevice) {
 			var any = new AnywhereManager();
 			var conf = new Config();
+			/*
 			var data = {  a1: JSON.stringify(localUsuario),
 						  a2:jSonDevice.model , idDeviceNative : jSonDevice.uuid, a3:conf.getIdSender(),
 						  dataCell: JSON.stringify(jSonDevice),
@@ -853,10 +854,11 @@ $("#menu_principal").bind("pageshow",function() {
 							 "EnrolaDevice", 
 							 "upd", 
 							 data);
+							 */
 		});
 	});
 	
-	//registraGCM();
+	registraGCM();
 	//initDoMark();
 });
 
