@@ -838,7 +838,7 @@ $("#menu_principal").bind("pageshow",function() {
 	var login = new Login();
 	login.getUsuario(function(localUsuario) {
 		console.log(localUsuario);
-		console.log(device);
+		console.log(device.getDeviceInfo());
 		/*
 		$.ajax({ 
 			type: "POST",

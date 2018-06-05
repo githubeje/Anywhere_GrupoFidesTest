@@ -764,6 +764,10 @@ function DeviceInfo() {
 	    }
 	    catch(e) {
 	    	info["app_version"] =  e;
+	    	if(funcJavascript != null) {
+        		var f = eval(funcJavascript);
+        		f(info);
+        	}
 	    }
 	    
 	    if(info["model"] == null 	   || info["model"] == undefined) { info["model"] = "-Error-" }
