@@ -12,7 +12,7 @@ var login;
 	});
 	
 	$("#login").live( "pageshow", function() {
-		$(document).ready(function(){
+		jQuery(window).load(function () {
 			/*pagebeforecreate*/
 			console.log("pagebeforecreate[begin]");
 			var login = new Login();
