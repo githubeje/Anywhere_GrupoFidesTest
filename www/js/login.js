@@ -12,8 +12,8 @@ var login;
 	});
 	
 	$("#login").live( "pageshow", function() {
-		$(document).ready(function () {
-		    var login = new Login();
+	    (function($) {
+	    	var login = new Login();
 		    login.getUsuario(function(usuario) {
 		    	console.log("tokenHandler2(usuario.rutT,8);");
 		        //tokenHandler2(usuario.rutT,8);
@@ -37,7 +37,11 @@ var login;
 				var sql = new MapSQL("cacheTripletaSelector");
 				sql.delAll();
 			};
-		});
+	    });
+	});
+	
+	$( document ).live("#login", "pageinit", function() {
+	    
 	});
 	
 	document.addEventListener("deviceready", onDeviceReady, false);
