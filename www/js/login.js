@@ -6,43 +6,46 @@ var login;
  
  
 	$("#login").live( "pagebeforecreate", function() {
-			setTimeout(function() {
-				var login = new Login();
-			    login.getUsuario(function(usuario) {
-			    	console.log("tokenHandler2(usuario.rutT,8);");
-			        //tokenHandler2(usuario.rutT,8);
-			    });
-			    
-				/*pagebeforecreate*/
-				console.log("pagebeforecreate[begin]");
-				var login = new Login();
-				$("#divUserContainer").html(login.getUserMethod());
-				console.log("pagebeforecreate[end]");
-				/*pagebeforecreate end*/
-			},1000)
+
 	});
 	
 	$("#login").live( "pageshow", function() {
-	     
- 			
-			var conf = new Config();
-			$("#clave").val(conf.getStaticClave());
+		setTimeout(function() {
+			iniciaLogin();
 			
-			if(conf.dropDatabasesOnInit()) {
-				console.log("[droping databse on init]");
-				var sql = new MapSQL();
-				sql.delAll();
-				
-				var sql = new MapSQL("cacheTripletaSelector");
-				sql.delAll();
-			};
- 
-	 
+		},1000);
 	});
 	
 	$( document ).live("#login", "pageinit", function() {
 	    
 	});
+	
+	function iniciaLogin() {
+		var login = new Login();
+	    login.getUsuario(function(usuario) {
+	    	console.log("tokenHandler2(usuario.rutT,8);");
+	        //tokenHandler2(usuario.rutT,8);
+	    });
+	    
+		/*pagebeforecreate*/
+		console.log("pagebeforecreate[begin]");
+		var login = new Login();
+		$("#divUserContainer").html(login.getUserMethod());
+		console.log("pagebeforecreate[end]");
+		/*pagebeforecreate end*/
+		
+		var conf = new Config();
+		$("#clave").val(conf.getStaticClave());
+		
+		if(conf.dropDatabasesOnInit()) {
+			console.log("[droping databse on init]");
+			var sql = new MapSQL();
+			sql.delAll();
+			
+			var sql = new MapSQL("cacheTripletaSelector");
+			sql.delAll();
+		};
+	}
 	
 	document.addEventListener("deviceready", onDeviceReady, false);
 	

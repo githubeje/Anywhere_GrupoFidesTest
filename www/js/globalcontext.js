@@ -1728,9 +1728,9 @@ function AnywhereManager() {
 }
 
 
-function AnySave() {
+class AnySave {
 	
-	
+	constructor() {
 		this.pointAddress = 'No definido';
 		this.stockImage = 'Sin Imagen';
 		this.posLatitud = null;
@@ -1748,11 +1748,11 @@ function AnySave() {
 		}, function(point) {
 			AnySave.pointAddress = point;
 		});
-	
+	}
 
 
 
-	function save(params) {
+	save(params) {
 		console.log("save v9.0.1");
 		if(!this.saveInt) {
 			this.saveInt = true;
@@ -1769,7 +1769,7 @@ function AnySave() {
 		}
 	}
 
-	function saveTwo(params) {
+	saveTwo(params) {
 		console.log("saveTwo v9.0.0");
 		
 		 if ($('#'+params.formName).validate({
@@ -1801,7 +1801,7 @@ function AnySave() {
 
 
 
-	function saveThree(params) {
+	saveThree(params) {
 		console.log("AnySave.saveThree v9.0.0");
 		
 		if(!this.checkRadios()) {
@@ -1861,7 +1861,7 @@ function AnySave() {
 		anySave.saveClaseWeb(true, "anywhere_movil_restanywhere", "AnySave", "add", params);
 	}
 	
-	function checkRadios() {
+	checkRadios() {
 		var ok = true;
 		
 		var namesRadio = {};
@@ -1893,7 +1893,7 @@ function AnySave() {
 		return ok;
 	}
 	
-	function setLastData(data){
+	setLastData(data){
 		if($("#lastMessageSave").length > 0) {
 			$("#lastMessageSave").remove();
 		}
@@ -1901,13 +1901,13 @@ function AnySave() {
 		$("body").append("<input type='hidden' id='lastMessageSave' value='"+data+"' />");
 	}
 	
-	function getLastData(){
+	getLastData(){
 		return $("#lastMessageSave").val();
 	}
 }
 
-function FunctionTool() {
-	function evalFunction(func) {
+class FunctionTool {
+	static evalFunction(func) {
 		if(func!=null) {
 			console.log("evalFunction()");
 			if(typeof func == 'function') {
