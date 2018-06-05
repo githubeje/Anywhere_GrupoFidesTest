@@ -8,13 +8,17 @@ var login;
 	 
 	
 	$("#login").live( "pagebeforecreate", function() {
+
+	});
+	
+	$("#login").live( "pageshow", function() {
+		/*pagebeforecreate*/
 		console.log("pagebeforecreate[begin]");
 		var login = new Login();
 		$("#divUserContainer").html(login.getUserMethod());
 		console.log("pagebeforecreate[end]");
-	});
-	
-	$("#login").live( "pageshow", function() {
+		/*pagebeforecreate end*/
+		
 		var conf = new Config();
 		$("#clave").val(conf.getStaticClave());
 		
