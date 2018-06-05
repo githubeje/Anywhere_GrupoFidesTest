@@ -3,24 +3,23 @@ var estado;
 var rut;
 var login;
 
-document.addEventListener("DOMContentLoaded", function(event) {
-	var login = new Login();
-    login.getUsuario(function(usuario) {
-    	console.log("tokenHandler2(usuario.rutT,8);");
-        //tokenHandler2(usuario.rutT,8);
-    });
-    
-	/*pagebeforecreate*/
-	console.log("pagebeforecreate[begin]");
-	var login = new Login();
-	$("#divUserContainer").html(login.getUserMethod());
-	console.log("pagebeforecreate[end]");
-	/*pagebeforecreate end*/
-});
-
+ 
  
 	$("#login").live( "pagebeforecreate", function() {
-
+			setTimeout(function() {
+				var login = new Login();
+			    login.getUsuario(function(usuario) {
+			    	console.log("tokenHandler2(usuario.rutT,8);");
+			        //tokenHandler2(usuario.rutT,8);
+			    });
+			    
+				/*pagebeforecreate*/
+				console.log("pagebeforecreate[begin]");
+				var login = new Login();
+				$("#divUserContainer").html(login.getUserMethod());
+				console.log("pagebeforecreate[end]");
+				/*pagebeforecreate end*/
+			},1000)
 	});
 	
 	$("#login").live( "pageshow", function() {
