@@ -825,10 +825,52 @@ $("#menu_principal").bind("pageshow",function() {
 	/*SHOW VERSION IN MENU*/
 	var info = new DeviceInfo();
 	var jSonDevice = info.getDeviceInfo(function(jSonDevice) {
+		console.log(jSonDevice);
 		$("#version").html(jSonDevice.app_version);
 	});
 	
-	registraGCM();
+	
+	console.log("SENDING");
+	var any = new Anywhere();
+    var device = new DeviceInfo();
+    var dev = device.getDeviceInfo();
+	
+	var login = new Login();
+	login.getUsuario(function(localUsuario) {
+		console.log(localUsuario);
+		console.log(device);
+		/*
+		$.ajax({ 
+			type: "POST",
+			url: any.getWSAnywhere_context() +"services/enrolamiento/save",
+			data: {  a1 : localUsuario.rutT, a2 : null, idDeviceNative : dev.uuid , a4 : dev.model, 
+					 a5 :  senderId , a6 : direccion, a7 : latitud, a8 : longitud, a9 : null, 
+					 usuario: JSON.stringify(localUsuario)
+			},
+			crossDomain : true,
+			beforeSend: function() {
+				//$.mobile.showPageLoadingMsg();
+			},				
+			success: function(data,status,jqXHR) {
+				console.log(data);
+				var popup = new MasterPopup();
+				popup.alertPopup("Enrolamiento ", data);
+				
+				registraGCM();
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) { 
+				var popup = new MasterPopup();
+				popup.alertPopup("Enrolamiento ", "Ocurri&#243; un error al guardar el registro.");
+			},
+			complete: function(data) {
+				//$.mobile.hidePageLoadingMsg();
+			}
+		});
+		*/
+ 
+	});
+	
+	//registraGCM();
 	//initDoMark();
 });
 

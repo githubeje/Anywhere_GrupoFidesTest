@@ -92,7 +92,7 @@ $('#quiebrestock_principal').bind( 'pageshow',function(event) {
 
  
 function saveQuiebre() {
-	var success = function(data) {
+	var successs = function(data) {
 		var mensajeSave = "Registro enviado correctamente";
 		if(data != null) {
 			if(data.dataFalsa == "dataFalsa") {
@@ -125,7 +125,7 @@ function saveQuiebre() {
 		 formName : "formSend",
 		 objAnywhere: objAnywhere,
 		 silent: false,
-		 success : success
+		 success : successs
 	});
 
 }

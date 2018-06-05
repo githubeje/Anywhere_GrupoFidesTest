@@ -341,7 +341,7 @@ function Validar() {
 
 		for ( i=1,j=2; i<largo; i++,j++ )	
 		{		
-			//alert("i=[" + i + "] j=[" + j +"]" );		
+ 	
 			if ( cnt == 3 )		
 			{			
 				dtexto = dtexto + '.';			
@@ -934,12 +934,12 @@ function JsTool() {
 function AnywhereManager() {
 	var any = new Anywhere();
 	
-	this.clearCache = function() {
+	AnywhereManager.prototype.clearCache = function() {
 		var caller = new ServerCaller();
 		caller.clearCache();
 	};
 	
-	this.login = function(async, usuario , clave,  funcJavascript) {
+	AnywhereManager.prototype.login = function(async, usuario , clave,  funcJavascript) {
 		console.log("[AnywhereManager.login.begin] v.2015.09.2");
 		
 		
@@ -980,7 +980,7 @@ function AnywhereManager() {
 		console.log("[AnywhereManager.login.end]");
 	};
 	
-	this.getConsultaTareasIn = function(/*async,*/ idCliente , idCadena, idLocal, idUsuario, funcJavascript) {
+	AnywhereManager.prototype.getConsultaTareasIn = function(/*async,*/ idCliente , idCadena, idLocal, idUsuario, funcJavascript) {
 		console.log("[AnywhereManager.ConsultaTareasIn.begin]");
 		var idUsuario = sessionStorage.getItem("rutT");
 		/*
@@ -1005,7 +1005,7 @@ function AnywhereManager() {
 	};	
 	
 	
-	this.getPerfilacion = function(async, funcJavascript) {
+	AnywhereManager.prototype.getPerfilacion = function(async, funcJavascript) {
 		//console.log("[AnywhereManager.getPerfilacion.begin]");
 		/*
 		var idUsuario = sessionStorage.getItem("rutT");
@@ -1020,7 +1020,7 @@ function AnywhereManager() {
 		//console.log("[AnywhereManager.getPerfilacion.end]");
 	};
 	
-	this.getClientes = function (async, funcJavascript) {
+	AnywhereManager.prototype.getClientes = function (async, funcJavascript) {
 		//console.log("[AnywhereManager.getClientes.begin]");
 		/*
 		var idUsuario = sessionStorage.getItem("rutT");
@@ -1036,7 +1036,7 @@ function AnywhereManager() {
 		
 	};
 	
-	this.ipos_getCadenas = function(async, idCliente, funcJavascript) {
+	AnywhereManager.prototype.ipos_getCadenas = function(async, idCliente, funcJavascript) {
 		console.log("[AnywhereManager.ipos_getCadenas.begin]");
 		/*
 		var idUsuario = sessionStorage.getItem("rutT");
@@ -1051,7 +1051,7 @@ function AnywhereManager() {
 		console.log("[AnywhereManager.ipos_getCadenas.end]");
 	};
 	
-	this.ipos_getCadenasTT = function(async, idCliente, idRegion, idComuna, funcJavascript) {
+	AnywhereManager.prototype.ipos_getCadenasTT = function(async, idCliente, idRegion, idComuna, funcJavascript) {
 		console.log("[AnywhereManager.ipos_getCadenasTT.begin]");
 		
 		var idUsuario = sessionStorage.getItem("rutT");
@@ -1066,7 +1066,7 @@ function AnywhereManager() {
 		console.log("[AnywhereManager.ipos_getCadenasTT.end]");
 	};
 	
-	this.ipos_getLocales = function(async, idCliente, idCadena, funcJavascript) {
+	AnywhereManager.prototype.ipos_getLocales = function(async, idCliente, idCadena, funcJavascript) {
 		console.log("[AnywhereManager.ipos_getLocales.begin]");
 		var idUsuario = sessionStorage.getItem("rutT");
 		
@@ -1080,7 +1080,7 @@ function AnywhereManager() {
 		console.log("[AnywhereManager.ipos_getLocales.end]");
 	};
 	
-	this.ipos_getLocalesTT = function(async, idCliente, idRegion , idComuna, idCadena, funcJavascript) {
+	AnywhereManager.prototype.ipos_getLocalesTT = function(async, idCliente, idRegion , idComuna, idCadena, funcJavascript) {
 		console.log("[AnywhereManager.ipos_getLocalesTT.begin]");
 		var idUsuario = sessionStorage.getItem("rutT");
 		
@@ -1094,7 +1094,7 @@ function AnywhereManager() {
 		console.log("[AnywhereManager.ipos_getLocalesTT.end]");
 	};
 	
-	this.ipos_getRegiones = function(async, idCliente,  funcJavascript) {
+	AnywhereManager.prototype.ipos_getRegiones = function(async, idCliente,  funcJavascript) {
 		console.log("[AnywhereManager.ipos_getRegiones.begin]");
 		var idUsuario = sessionStorage.getItem("rutT");
 		
@@ -1108,7 +1108,7 @@ function AnywhereManager() {
 		console.log("[AnywhereManager.ipos_getRegiones.end]");
 	};
 	
-	this.ipos_getComunas = function(async, idCliente, idRegion, funcJavascript) {
+	AnywhereManager.prototype.ipos_getComunas = function(async, idCliente, idRegion, funcJavascript) {
 		console.log("[AnywhereManager.ipos_getComunas.begin]");
 		var idUsuario = sessionStorage.getItem("rutT");
 		
@@ -1122,7 +1122,7 @@ function AnywhereManager() {
 		console.log("[AnywhereManager.ipos_getComunas.end]");
 	};
 	
-	this.ipos_getDistribuidores = function(async, idCliente, idRegion,idComuna,idCadena, funcJavascript) {
+	AnywhereManager.prototype.ipos_getDistribuidores = function(async, idCliente, idRegion,idComuna,idCadena, funcJavascript) {
 		console.log("[AnywhereManager.ipos_getDistribuidores.begin]");
 		var idUsuario = sessionStorage.getItem("rutT");
 		
@@ -1136,7 +1136,7 @@ function AnywhereManager() {
 		console.log("[AnywhereManager.ipos_getDistribuidores.end]");
 	};
 	
-	this.ipos_getCategorias = function(async, idCliente, funcJavascript, idGrupo) {
+	AnywhereManager.prototype.ipos_getCategorias = function(async, idCliente, funcJavascript, idGrupo) {
 		console.log("[AnywhereManager.ipos_getCategorias.begin]");
 		var idUsuario = sessionStorage.getItem("rutT");
 		
@@ -1150,7 +1150,7 @@ function AnywhereManager() {
 		console.log("[AnywhereManager.ipos_getCategorias.end]");
 	};
 	
-	this.ipos_getProductos = function(async, idCliente, idLocal, idCategoria, funcJavascript) {
+	AnywhereManager.prototype.ipos_getProductos = function(async, idCliente, idLocal, idCategoria, funcJavascript) {
 		console.log("[AnywhereManager.ipos_getProductos.begin]");
 		var idUsuario = sessionStorage.getItem("rutT");
 		
@@ -1165,7 +1165,7 @@ function AnywhereManager() {
 		console.log("[AnywhereManager.ipos_getProductos.end]");
 	};
 	
-	this.ipos_getPromociones = function(async, idCliente, idCadena, funcJavascript) {
+	AnywhereManager.prototype.ipos_getPromociones = function(async, idCliente, idCadena, funcJavascript) {
 		console.log("[AnywhereManager.ipos_getPromociones.begin]");
 		var idUsuario = sessionStorage.getItem("rutT");
 		
@@ -1180,7 +1180,7 @@ function AnywhereManager() {
 	};
 	
 	
-	this.imarket_getCompetidores= function(async, idCliente , funcJavascript) {
+	AnywhereManager.prototype.imarket_getCompetidores= function(async, idCliente , funcJavascript) {
 		console.log("[AnywhereManager.imarket_getCompetidores.begin]");
 		var idUsuario = sessionStorage.getItem("rutT");
 		
@@ -1194,7 +1194,7 @@ function AnywhereManager() {
 		console.log("[AnywhereManager.imarket_getCompetidores.end]");
 	};
 	
-	this.imarket_getCategoriaCompetidores= function(async, idCliente , funcJavascript) {
+	AnywhereManager.prototype.imarket_getCategoriaCompetidores= function(async, idCliente , funcJavascript) {
 		console.log("[AnywhereManager.imarket_getCategoriaCompetidores.begin]");
 		var idUsuario = sessionStorage.getItem("rutT");
 		
@@ -1208,7 +1208,7 @@ function AnywhereManager() {
 		console.log("[AnywhereManager.imarket_getCategoriaCompetidores.end]");
 	};
 	
-	this.imarket_getProductosCompetidores= function(async, idCompetencia , idCategoria, funcJavascript) {
+	AnywhereManager.prototype.imarket_getProductosCompetidores= function(async, idCompetencia , idCategoria, funcJavascript) {
 		console.log("[AnywhereManager.imarket_getProductosCompetidores.begin]");
 		var idUsuario = sessionStorage.getItem("rutT");
 		
@@ -1222,7 +1222,7 @@ function AnywhereManager() {
 		console.log("[AnywhereManager.imarket_getProductosCompetidores.end]");
 	};	
 	
-	this.generator_getListaFormularios= function(async, funcJavascript) {
+	AnywhereManager.prototype.generator_getListaFormularios= function(async, funcJavascript) {
 		console.log("[AnywhereManager.generator_getListaFormularios.begin]");
 		
 		if(async) {
@@ -1235,7 +1235,7 @@ function AnywhereManager() {
 		console.log("[AnywhereManager.generator_getListaFormularios.end]");
 	};
 	
-	this.generator_getFormularios= function(async, idForm, funcJavascript) {
+	AnywhereManager.prototype.generator_getFormularios= function(async, idForm, funcJavascript) {
 		console.log("[AnywhereManager.generator_getFormularios.begin]");
 		
 		if(async) {
@@ -1248,7 +1248,7 @@ function AnywhereManager() {
 		console.log("[AnywhereManager.generator_getFormularios.end]");
 	};
 	
-	this.getClaseWeb = function (async, modulo, thing, accion, parameters, funcJavascript) {
+	AnywhereManager.prototype.getClaseWeb = function (async, modulo, thing, accion, parameters, funcJavascript) {
 		
 		console.log("[AnywhereManager.getClaseWeb.begin]");
 		var login = new Login();
@@ -1273,8 +1273,9 @@ function AnywhereManager() {
 		});
 	};
 	
-	this.saveClaseWeb = function (async, modulo, thing, accion, parameters, funcJavascript) {
+	AnywhereManager.prototype.saveClaseWeb = function (async, modulo, thing, accion, parameters, funcJavascript) {
 		console.log("[AnywhereManager.getClaseWeb.begin]");
+ 
 		var login = new Login();
 		login.getUsuario(function(usuario) {
 			var map  = new MapSQL("PRESENCIA");
@@ -1294,11 +1295,9 @@ function AnywhereManager() {
 					 }
 				}
 				
- 
-				params["success"] = eval("("+parameters["success"]+")");
-				params["error"] =   eval("("+parameters["error"]+")");
+				params["success"] = eval("("+JSON.stringify(String(parameters["success"]))+")");
+				params["error"] =   eval("("+JSON.stringify(String(parameters["error"]))+")");
 				
-				var anyCaller = new AnywhereManager();
 				var any = new Anywhere();
 				
 				if(async) {/*
@@ -1306,12 +1305,11 @@ function AnywhereManager() {
 					params["thing"] = "AnySave";
 					params["modulo"] = "add";
 					*/
- 
- 
-					anyCaller.save(
+					var objCalleador = new AnywhereManager();
+					
+					objCalleador.save(
 						any.getWSAnywjere_contextEjeCore()+ "EjeCoreI",
-						params,
-						funcJavascript );
+						params );
 
 					//anyCaller.loadFromServer_Async(any.getWSAnywjere_contextEjeCore()+ "EjeCoreI",params , funcJavascript, "POST");
 				}
@@ -1322,14 +1320,14 @@ function AnywhereManager() {
 		});
 	};
 	
-	this.loadFromServer_Async = function(vUrl, params, funcJavascript, type) {
+	AnywhereManager.prototype.loadFromServer_Async = function(vUrl, params, funcJavascript, type) {
 		if(funcJavascript == null) {
 			funcJavascript = function(data) {};
 		}
 		this.callServer(vUrl, params, true, funcJavascript, type);
 	};
 	
-	this.loadFromServer_Sync = function(vUrl, params, nulo, type) {
+	AnywhereManager.prototype.loadFromServer_Sync = function(vUrl, params, nulo, type) {
 		var funcJavascript = null;
 		if(funcJavascript == null) {
 			funcJavascript = function(data) { return data;};
@@ -1337,7 +1335,7 @@ function AnywhereManager() {
 		return this.callServer(vUrl, params, false,  funcJavascript);
 	};
 	
-	this.checkSavesPendientes = function(urlRedirect, functionJavascript) {
+	AnywhereManager.prototype.checkSavesPendientes = function(urlRedirect, functionJavascript) {
 		var stack = localStorage.getItem("idSaves");
 		if(stack != null && stack != undefined && this.getSavesPendientes() > 0 ) {			
 			stack = JSON.parse(stack);			
@@ -1355,11 +1353,11 @@ function AnywhereManager() {
 	};
 	
 	
-	this.resetStorage = function() {
+	AnywhereManager.prototype.resetStorage = function() {
 		localStorage.clear();
 	};
 	
-	this.sendSavesToServer = function(urlRedirect, functionJavascript) {
+	AnywhereManager.prototype.sendSavesToServer = function(urlRedirect, functionJavascript) {
 		
 		if(localStorage.getItem("idSaves") != null) {
 			var popup = new MasterPopup();
@@ -1442,7 +1440,7 @@ function AnywhereManager() {
 		
 	};
 	
-	this.deleteSavePendiente = function(key) {
+	AnywhereManager.prototype.deleteSavePendiente = function(key) {
 		var keys = localStorage.getItem("idSaves");
 		console.log("[TRYING DELETE]"+key);
 		if( keys != null) {
@@ -1456,7 +1454,7 @@ function AnywhereManager() {
 		}
 	};
 	
-	this.getSavesPendientes = function() {
+	AnywhereManager.prototype.getSavesPendientes = function() {
 		var cant = 0;
 		var keys = localStorage.getItem("idSaves");
 		console.log("[GETSAVES PENDIENTES ]"+keys);
@@ -1473,33 +1471,32 @@ function AnywhereManager() {
 		return cant;
 	};
 	
-	this.save = function(vUrl, params, sucess, error, complete, async) {
-		var versionAqui = "Anywhere.save v2.0.0 ";
+	AnywhereManager.prototype.save = function(vUrl, params, sucess, error, complete, async) {
+		var versionAqui = "Anywhere.save v2.0.1 ";
 		//console.log(params);
 		console.log(" "+versionAqui+" "+vUrl);
 		/**
 		 * save
 		 * */
-		
 		if(async == null) {
 			async = true;
 		}
-		
+
 		//console.log(params);
 		
 		if(params.success== null) {
-			params["success"] = eval("("+sucess+")");	
+			params["success"] = eval("("+JSON.stringify(sucess)+")");	
 		}
 		if(params.error== null) {
-			params["error"] = eval("("+error+")");
+			params["error"] = eval("("+JSON.stringify(error)+")");
 		}
 		if(params.complete== null) {
-			params["complete"] = eval("("+complete+")");
+			params["complete"] = eval("("+JSON.stringify(complete)+")");
 		}
 		
-		var s = eval("("+params["success"]+")");
-		var e = eval("("+params["error"]+")");
-		var c = eval("("+params["complete"]+")");
+		var s = eval("("+JSON.stringify(params["success"])+")");
+		var e = eval("("+JSON.stringify(params["error"])+")");
+		var c = eval("("+JSON.stringify(params["complete"])+")");
 		
 		var data = JSON.parse(JSON.stringify(params));
 		data.success= null;
@@ -1575,7 +1572,7 @@ function AnywhereManager() {
 		
 	};
 	
-	this.saveMaster = function(newSave) {
+	AnywhereManager.prototype.saveMaster = function(newSave) {
 		console.log("[AnywhereManager.saveMaster] "); 
 		console.log(newSave);
 		var ok = false;
@@ -1651,7 +1648,7 @@ function AnywhereManager() {
 		return ok;
 	};
 	
-	this.callServer = function(vUrl, params, async , funcJavascript, type) {
+	AnywhereManager.prototype.callServer = function(vUrl, params, async , funcJavascript, type) {
 		console.log("[Globalcontext.callServer] "+vUrl+" "+JSON.stringify(params));
 		var dataReturn = null;
 		if(type == null) {
@@ -1715,7 +1712,7 @@ function AnywhereManager() {
 		return dataReturn;
 	};
 	
-	this.makeId = function()  {
+	AnywhereManager.prototype.makeId = function()  {
 		console.log("[MasterPopup.makeid]");
 	    var text = "";
 	    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -1821,7 +1818,9 @@ function AnySave() {
 		params["fotoTres"] = $("#hiddenFotoTres").val();
 		params["fotoCuatro"] = $("#hiddenFotoCuatro").val();
 		params["objAnywhere"] = null;
-		params["success"] = eval("("+params["success"]+")");
+		
+		var s = eval("("+String(params["success"])+")")
+		params["success"] = s;
 		console.log(params);
 		
 		var success2 = function(data,status,jqXHR, o) { 
@@ -1856,7 +1855,7 @@ function AnySave() {
 		
 		//params["success"] = success2;
 		
-		 
+ 
 		var anySave = new AnywhereManager();
 		anySave.saveClaseWeb(true, "anywhere_movil_restanywhere", "AnySave", "add", params);
 	}
