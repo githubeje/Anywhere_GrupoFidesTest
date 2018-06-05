@@ -17,11 +17,12 @@ var registred = false;
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
-$("#login").live( "pageshow", function() {
+$("#login").live( "mobileinit", function() {
 	config = new Config();
 	senderId = config.getIdSender();
 });
  
+
 function onDeviceReady() {
 	//registraGCM();
 
