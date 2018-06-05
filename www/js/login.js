@@ -3,25 +3,22 @@ var estado;
 var rut;
 var login;
 
-
-	/* HOOK EVENTS */
-$(document).on('pageinit', function() {
-
-		var login = new Login();
-	    login.getUsuario(function(usuario) {
-	    	console.log("tokenHandler2(usuario.rutT,8);");
-	        //tokenHandler2(usuario.rutT,8);
-	    });
-	    
-		/*pagebeforecreate*/
-		console.log("pagebeforecreate[begin]");
-		var login = new Login();
-		$("#divUserContainer").html(login.getUserMethod());
-		console.log("pagebeforecreate[end]");
-		/*pagebeforecreate end*/
-
+document.addEventListener("DOMContentLoaded", function(event) {
+	var login = new Login();
+    login.getUsuario(function(usuario) {
+    	console.log("tokenHandler2(usuario.rutT,8);");
+        //tokenHandler2(usuario.rutT,8);
+    });
+    
+	/*pagebeforecreate*/
+	console.log("pagebeforecreate[begin]");
+	var login = new Login();
+	$("#divUserContainer").html(login.getUserMethod());
+	console.log("pagebeforecreate[end]");
+	/*pagebeforecreate end*/
 });
 
+ 
 	$("#login").live( "pagebeforecreate", function() {
 
 	});
