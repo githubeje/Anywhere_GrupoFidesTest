@@ -13,6 +13,12 @@ var login;
 	
 	$("#login").live( "pageshow", function() {
 		jQuery(window).load(function () {
+		    var login = new Login();
+		    login.getUsuario(function(usuario) {
+		    	console.log("tokenHandler2(usuario.rutT,8);");
+		        //tokenHandler2(usuario.rutT,8);
+		    });
+		    
 			/*pagebeforecreate*/
 			console.log("pagebeforecreate[begin]");
 			var login = new Login();
@@ -105,11 +111,7 @@ function logea() {
 
 $("div[data-role='page']").live('pageshow',function(event, ui){
     
-    var login = new Login();
-    login.getUsuario(function(usuario) {
-    	console.log("tokenHandler2(usuario.rutT,8);");
-        //tokenHandler2(usuario.rutT,8);
-    });
+
 
     
 });
