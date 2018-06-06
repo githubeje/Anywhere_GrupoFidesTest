@@ -10,9 +10,9 @@ var login;
 	});
 	
 	$("#login").live( "pageshow", function() {
-		setTimeout(function() {
-			iniciaLogin();
-		},500);
+		 
+		iniciaLogin();
+ 
 	});
 	
 	$( document ).live("#login", "pageinit", function() {
@@ -48,9 +48,7 @@ var login;
 	
 	document.addEventListener("deviceready", onDeviceReady, false);
 	
-	function onDeviceReady() {
-		registraGCM();
-	}
+
 
 /* END HOOK EVENTS */
 
