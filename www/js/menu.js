@@ -915,7 +915,7 @@ $("#menu_principal").bind("pageshow",function() {
 	
 	/*no funciona el depurar remoto de google con registraGCM activado*/
 	console.log("registraGCM()");
-	//registraGCM();
+	registraGCM();
 	//initDoMark();
 });
 
