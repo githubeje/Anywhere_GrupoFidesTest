@@ -918,6 +918,7 @@ $("#menu_principal").bind("pageshow",function() {
 		$("#version").html(jSonDevice.app_version);
 	});
 
+	/*no funciona el depurar remoto de google con registraGCM activado*/
 	console.log("registraGCM()");
 	registraGCM();
 	//initDoMark();
