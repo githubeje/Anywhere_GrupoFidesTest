@@ -8,15 +8,15 @@ function getInstancer() {
 
 function Anywhere() {
 	this.getWSAnywhere_context = function() {
-		//return "http://www.anywhere.cl/fides/ws1/"; //prod
+		return "http://www.anywhere.cl/fides/ws1/"; //prod
 		//return "http://www.anywhere.cl/wsprogestionchilebi/";
-		return "http://192.168.100.14:8090/fides/ws1/"; //LOCAL PANCHO  
+		//return "http://192.168.100.14:8090/fides/ws1/"; //LOCAL PANCHO  
 		//return "http://192.168.1.5:8080/wsprogestionchilebi/"; 
 	};
 
 	this.getWSAnywjere_contextEjeCore = function() { 
-		//return "http://www.anywhere.cl/fides/ws2/"; // prod  
-		return "http://192.168.100.14:8080/fides/ws2/"; // LOCAL PANCHO
+		return "http://www.anywhere.cl/fides/ws2/"; // prod  
+		//return "http://192.168.100.14:8080/fides/ws2/"; // LOCAL PANCHO
 		//return "http://localhost:8080/wsprogestionchilebi2/"; 
 		//return "http://localhost:8090/web/";
 	};
@@ -978,6 +978,8 @@ function AnywhereManager() {
 			crossDomain : true,
 			cache: false,
 			success: function(data) {
+				console.log("[AnywhereManager.login.begin] success ");
+				
 				if(funcJavascript != null) {
 					var funcSuccesLocal = eval(funcJavascript);
 					dataReturn = funcSuccesLocal(data);

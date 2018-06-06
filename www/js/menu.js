@@ -882,14 +882,7 @@ onPhotoDataSuccess = function(imageData) {
 //$("#menu_principal").bind("pageshow",function() { });
 
 */
-
-function cargaURL(url) {
-    var ref = window.open(url, '_system', 'location=no');
-    setTimeout(function() {
-        ref.close();
-    }, 5000);
-}
-
+ 
 
 
 $("#menu_principal").bind("pageshow",function() {
@@ -913,11 +906,13 @@ $("#menu_principal").bind("pageshow",function() {
 		 
 	
 	/*SHOW VERSION IN MENU*/
+	/*
 	var info = new DeviceInfo();
 	var jSonDevice = info.getDeviceInfo(function(jSonDevice) {
 		$("#version").html(jSonDevice.app_version);
 	});
-
+	*/
+	
 	/*no funciona el depurar remoto de google con registraGCM activado*/
 	console.log("registraGCM()");
 	//registraGCM();
