@@ -164,10 +164,10 @@ function confirmWJavasript(asunto, msg, metodoJavascript){
 function MasterPopup() {
 	
 	this.popupIdentify = null;
-
+	MasterPopup.prototype.id = Math.random();
 	
 	MasterPopup.prototype.createPopup = function(id, asunto, msg, url1, url2, metodoJavascript, headerClose, omitButtonTrue, omitButtonFalse, jsonProps) {
-		console.log("[MasterPopup.createPopup]");
+		console.log("[MasterPopup.createPopup] "+ MasterPopup.prototype.id);
 		
 		var funcYes = null;
 		var funcNo = null;
@@ -266,7 +266,7 @@ function MasterPopup() {
 	};
 	
 	MasterPopup.prototype.makeId = function()  {
-		console.log("[MasterPopup.makeid]");
+		console.log("[MasterPopup.makeid] "+ MasterPopup.prototype.id);
 	    var text = "";
 	    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -277,22 +277,22 @@ function MasterPopup() {
 	};
 	
 	MasterPopup.prototype.bloqPopup = function(asunto, msg , configura) {
-		console.log("[MasterPopup.bloqPopup]");
+		console.log("[MasterPopup.bloqPopup] "+ MasterPopup.prototype.id);
 		this.createPopup(null, asunto, msg, null, null, null, false,true,true, configura);
 	};
 	
 	MasterPopup.prototype.alertPopup = function(asunto, msg, configura) {
-		console.log("[MasterPopup.alertPopup]");
+		console.log("[MasterPopup.alertPopup] "+ MasterPopup.prototype.id);
 		this.createPopup(null, asunto, msg, null, null, null, false, false, true, configura);
 	};
 	
 	MasterPopup.prototype.confirmPopup = function(asunto, msg, configura) {
-		console.log("[MasterPopup.confirmPopup]");
+		console.log("[MasterPopup.confirmPopup] "+ MasterPopup.prototype.id);
 		this.createPopup(null, asunto, msg, null, null, null, false, false, false, configura);
 	};
 	
 	MasterPopup.prototype.closePopup = function() {
-		console.log("[MasterPopup.closePopup]");
+		console.log("[MasterPopup.closePopup] "+ MasterPopup.prototype.id);
 		
 		$(this.popupIdentify).simpledialog2('close');
 	};

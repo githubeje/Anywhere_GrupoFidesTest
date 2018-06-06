@@ -8,21 +8,21 @@ function getInstancer() {
 
 function Anywhere() {
 	this.getWSAnywhere_context = function() {
-		return "http://www.anywhere.cl/fides/ws1/"; //prod
+		//return "http://www.anywhere.cl/fides/ws1/"; //prod
 		//return "http://www.anywhere.cl/wsprogestionchilebi/";
-		//return "http://localhost:8090/fides/ws1/"; //LOCAL PANCHO  
+		return "http://192.168.100.14:8090/fides/ws1/"; //LOCAL PANCHO  
 		//return "http://192.168.1.5:8080/wsprogestionchilebi/"; 
 	};
 
 	this.getWSAnywjere_contextEjeCore = function() { 
-		return "http://www.anywhere.cl/fides/ws2/"; // prod  
-		//return "http://localhost:8080/fides/ws2/"; // LOCAL PANCHO
+		//return "http://www.anywhere.cl/fides/ws2/"; // prod  
+		return "http://192.168.100.14:8080/fides/ws2/"; // LOCAL PANCHO
 		//return "http://localhost:8080/wsprogestionchilebi2/"; 
 		//return "http://localhost:8090/web/";
 	};
 	
 	this.getAnywhere_context = function() {
-		return "http://www.anywhere.cl/fides/ws1/";
+		return "http://www.anywhere.cl/fides/ws1/"; //prod
 		//return "http://www.anywhere.cl/wsprogestionchilebi/";
 		//return "http://192.168.1.6:8080/progestionchilebi/";
 		//return "http://localhost:8080/fides/ws1/";
@@ -171,50 +171,33 @@ function Cluster() {
 }
 
 function InOutUtils() {
-	this.isInside = function(functionIsInside) {
+	InOutUtils.prototype.isInside = function(functionIsInside) {
 		if(functionIsInside == null) return;
 		  
-		var login = new Login();
 	
-		login.getUsuario(function(usuario) {
-			console.log("getUsuario!!!!");
+			//console.log("getUsuario!!!!");
 			
 			var success = function(data,status,jqXHR) {
-				console.log("success!!!!");
-				
-				var fSuccess = function(data,status,jqXHR, x, versions) {
-					var funcReturn = eval(x);
-					try {
-						funcReturn(data.total > 0, data.data[0], versions);
-					}
-					catch(e) {
-						try {
-							funcReturn(false, data.data[0], versions);	
-						}
-						catch(e) {
-							
-						}
-					}
-				}
-
-				var fValidaLastVersion = function(versions) {
-					
-					var funcReturn = eval(functionIsInside);
-					console.log("fValidaLastVersion");
-					console.log(versions);
-					
-					if(versions.lastVersion == -1) { //SIN SESIÓN
-						FunctionTool.evalFunction(funcReturn(true, 1, versions));
-					}
-					else {
-						FunctionTool.evalFunction(fSuccess(data,status,jqXHR, functionIsInside, versions));	
-					}
-				};
-				
-				//console.log("getting versions:");
+ 			
+				var funcReturn = eval(functionIsInside);
 				
 				var version = new Version();
-				version.getVersions(fValidaLastVersion);
+				version.getVersions(function(versions) {
+					var map = new MapSQL("PRESENCIA");
+					map.get("idregistro", function(value1) {		
+						map.get("horaingreso", function(value2) {	
+							if(value1 != null && value1.data != null) {
+								console.log("return YES, IT IS INSIDE");
+								FunctionTool.evalFunction(funcReturn,true, { idregistro : value1.data , horaingreso : value2.data } , versions);
+							}
+							else {
+								console.log("return NO, NO IS INSIDE");
+								FunctionTool.evalFunction(funcReturn,false, { idregistro : "0" , horaingreso :  "" } , versions);
+							}
+						});
+						
+					})
+				});
 
 			};
 			
@@ -228,10 +211,35 @@ function InOutUtils() {
 			
 			eje.getClaseWeb(true, "anywhere_movil_restanywhere", "Presencia", "get", p ,success);
 			
-		 
-		});
+		  
 		
 	};
+	
+	InOutUtils.prototype.setInside = function(idregistro) {
+		console.log(idregistro);
+		
+		var map = new MapSQL("PRESENCIA");
+		map.add("idregistro", idregistro);	
+		
+		var seconds = 0;
+		var minutes = 0;
+		var hour = 0;
+		try {
+			seconds = new Date().getSeconds();
+			minutes =new Date().getMinutes();
+			hour = new Date().getHours();
+		}
+		catch(e) {
+			console.log(e);
+		}
+		
+		map.add("horaingreso", hour+":"+minutes+":"+seconds);
+	}
+	
+	InOutUtils.prototype.setOut = function() {
+		var map = new MapSQL("PRESENCIA");
+		map.delAll();	
+	}
 }
  
 function IposPagerUtil() {
@@ -634,7 +642,7 @@ function Logger() {
 	};
 	
 	this.download = function() {
-		console.log("[download] logger.txt");
+		//console.log("[download] logger.txt");
 		this.saveAs(JSON.stringify(this.logStr), "logger.txt");
 	};
 	
@@ -1299,8 +1307,10 @@ function AnywhereManager() {
 					 }
 				}
 				
-				params["success"] = eval("("+JSON.stringify(String(parameters["success"]))+")");
-				params["error"] =   eval("("+JSON.stringify(String(parameters["error"]))+")");
+ 
+				params["success"] =  parameters["success"]  ;
+				params["error"] =    new Function("("+String(parameters["error"])+")");
+				
 				
 				var any = new Anywhere();
 				
@@ -1309,6 +1319,8 @@ function AnywhereManager() {
 					params["thing"] = "AnySave";
 					params["modulo"] = "add";
 					*/
+				
+					
 					var objCalleador = new AnywhereManager();
 					
 					objCalleador.save(
@@ -1379,29 +1391,29 @@ function AnywhereManager() {
 							$.each(stack, function(k,v) {
 								console.log("[KEY "+k+"]");
 								try {
-									console.log("[KEY "+k+" 1]");
+									//console.log("[KEY "+k+" 1]");
 									var newSave = localStorage.getItem(k);
 									//var popupNewSave = new MasterPopup();
 									//popupNewSave.alertPopup("New Save", newSave);
 									
 									if(newSave != null) {
-										console.log("[KEY "+k+" 2]");
+										//console.log("[KEY "+k+" 2]");
 										newSave = JSON.parse(newSave);
 										newSave.async = false;
 										
 										var gc = new AnywhereManager();
 										var ok = gc.saveMaster(newSave);
-										console.log("[KEY "+k+" 4]");
+										//console.log("[KEY "+k+" 4]");
 										if(ok) {
 											oks += 1;
 											var mngLocal = new AnywhereManager();
-											console.log("[KEY "+k+" 5]");
+											//console.log("[KEY "+k+" 5]");
 											mngLocal.deleteSavePendiente(k);
 										}
 										else {
 											mal += 1;
 										}
-										console.log("[KEY "+k+" 5]");
+										//console.log("[KEY "+k+" 5]");
 									}else {
 										localStorage.removeItem(k);
 									}
@@ -1479,28 +1491,31 @@ function AnywhereManager() {
 		var versionAqui = "Anywhere.save v2.0.1 ";
 		//console.log(params);
 		console.log(" "+versionAqui+" "+vUrl);
-		/**
-		 * save
-		 * */
+
+		
 		if(async == null) {
 			async = true;
 		}
 
-		//console.log(params);
+
 		
-		if(params.success== null) {
-			params["success"] = eval("("+JSON.stringify(sucess)+")");	
+		/*
+		if( sucess !== null) {
+			params["success"] = new Function("("+String(sucess)+")");	
 		}
-		if(params.error== null) {
-			params["error"] = eval("("+JSON.stringify(error)+")");
+		if( error !== null) {
+			params["error"] = new Function("("+String(error)+")");
 		}
-		if(params.complete== null) {
-			params["complete"] = eval("("+JSON.stringify(complete)+")");
+		if( complete !== null) {
+			params["complete"] = new Function("("+String(complete)+")");
 		}
+		*/
 		
-		var s = eval("("+JSON.stringify(params["success"])+")");
-		var e = eval("("+JSON.stringify(params["error"])+")");
-		var c = eval("("+JSON.stringify(params["complete"])+")");
+		var s = params["success"];
+		var e = params["error"];
+		var c = params["complete"];
+		
+
 		
 		var data = JSON.parse(JSON.stringify(params));
 		data.success= null;
@@ -1517,10 +1532,7 @@ function AnywhereManager() {
 		
 		var version = new Version();
 		console.log(versionAqui+" getting version");
-				
-		params.success = eval("("+params["success"]+")");
-		params.error = eval("("+params["error"]+")");
-		params.complete = eval("("+params["complete"]+")");
+
 		
 		version.getLastVersion(function(lastVersion){
 			if( lastVersion == -1) {//-1 = SIN SESIÓN
@@ -1545,11 +1557,11 @@ function AnywhereManager() {
 					localStorage.setItem(newId	  ,JSON.stringify(newSave));
 					localStorage.setItem("idSaves",JSON.stringify(stack));
 					
-					console.log(" SIN SESION  11");
-					console.log(params);
+					//console.log(" SIN SESION  11");
+					//console.log(params);
 					
 					if(params.success != null) {
-						console.log(" SIN SESION AAA11 22");
+						//console.log(" SIN SESION AAA11 22");
 						params.success({"dataFalsa":"dataFalsa"});
 					}
 	
@@ -1577,45 +1589,43 @@ function AnywhereManager() {
 	};
 	
 	AnywhereManager.prototype.saveMaster = function(newSave) {
-		console.log("[AnywhereManager.saveMaster] "); 
-		console.log(newSave);
+		var instance = Math.random();
+		console.log("[AnywhereManager.saveMaster] "+instance); 
+		 
+		var data = JSON.parse(JSON.stringify(newSave));
+		data.success= null;
+		data.error= null;
+		data.complete= null;
+ 
 		var ok = false;
-		
-		
+				
 		try {
 			$.ajax({ 
-				type: newSave.type ,
+				type: newSave["type"] ,
 				dataType:"json",
-				url: newSave.url,
-				async: newSave.async,
-				data: newSave.data,
+				url: newSave["url"],
+				async: newSave["async"],
+				data: data.data,
 				cache: false,
 				crossdomain:true,
-				success: function(data) {
-					
-					
-					console.log("IN [AnywhereManager.saveMaster.success] "+newSave.url+" "+newSave.data);
-					console.log(typeof newSave.success)
-					if("function" == typeof newSave.success) {
-						FunctionTool.evalFunction(newSave.success(data));
-					}
+				success: function(datam,am,bm) {
+					console.log("IN [AnywhereManager.saveMaster.success] "+newSave.url+" "+instance);
 
-					/*
-					if(newSave.success != null) {
-						//console.log(newSave.success);
-						newSave.success(data);		
+					console.log(typeof newSave.success);
+					if("function" == typeof newSave.success) {
+						newSave.success(datam,am,bm);
 					}
-					*/
-					
+ 
 					ok = true;
-					console.log("OUT [AnywhereManager.saveMaster.success] "+newSave.url+" "+newSave.data);
+					console.log("OUT [AnywhereManager.saveMaster.success] "+newSave.url+" "+instance);
 				},
 				error: function(jqXHR,  textStatus,  errorThrown ) {
 					
 					console.log("IN [AnywhereManager.saveMaster.error]"+JSON.stringify(jqXHR)+" "+JSON.stringify(textStatus)+" "+JSON.stringify(errorThrown));
 					console.log(typeof newSave.error)
+					console.log(typeof newSave.error)
 					if("function" == typeof newSave.error) {
-						FunctionTool.evalFunction(newSave.error(jqXHR,  textStatus,  errorThrown ));
+						newSave.error( jqXHR,  textStatus,  errorThrown );
 					}
 				
 					/*
@@ -1644,7 +1654,7 @@ function AnywhereManager() {
 			});
 		}
 		catch(e) {
-			console.log("[AnywhereManager.saveMaster.catch]"+e+"  "+newSave.url+" ");
+			console.log("[AnywhereManager.saveMaster.catch]"+e+"  "+newSave.url+" "+instance);
 			ok = false;
 
 		}
@@ -1653,7 +1663,7 @@ function AnywhereManager() {
 	};
 	
 	AnywhereManager.prototype.callServer = function(vUrl, params, async , funcJavascript, type) {
-		console.log("[Globalcontext.callServer] "+vUrl+" "+JSON.stringify(params));
+		console.log("[Globalcontext.callServer] "+vUrl+" ");
 		var dataReturn = null;
 		if(type == null) {
 			type = "GET";
@@ -1732,25 +1742,52 @@ function AnywhereManager() {
 function AnySave() {
 	
 	
-	this.pointAddress = 'No definido';
+	AnySave.prototype.pointAddress = null;
 	this.stockImage = 'Sin Imagen';
-	this.posLatitud = null;
-	this.posLongitud = null;
+	AnySave.prototype.posLatitud = null;
+	AnySave.prototype.posLongitud = null;
 	this.saveInt = false;
 	this.nombreModulo = "nn";
 	this.formularioID = null;
 	this.message = null;
+	AnySave.prototype.listeners = [];
 	
 	var geo = new GeoGlobal();
 	geo.refreshGeo(function(lat, lo) {
-		AnySave.posLatitud = lat;
-		AnySave.posLongitud = lo;
-
+		AnySave.prototype.posLatitud = lat;
+		AnySave.prototype.posLongitud = lo;
+		//console.log(AnySave.prototype.posLatitud + ","+ AnySave.prototype.posLongitud);
+		
+		if(AnySave.prototype.posLatitud !== null && 
+		   AnySave.prototype.posLongitud !== null && 
+		   AnySave.prototype.pointAddress !== null) {
+			AnySave.prototype.onGeo(AnySave.prototype.posLatitud, AnySave.prototype.posLongitud,AnySave.prototype.pointAddress );
+		}
 	}, function(point) {
-		AnySave.pointAddress = point;
+		AnySave.prototype.pointAddress = point;
+		//console.log(AnySave.prototype.pointAddress);
+		
+		if(AnySave.prototype.posLatitud !== null && 
+		   AnySave.prototype.posLongitud !== null && 
+		   AnySave.prototype.pointAddress !== null) {
+			AnySave.prototype.onGeo(AnySave.prototype.posLatitud, AnySave.prototype.posLongitud,AnySave.prototype.pointAddress );
+		}
 	});
 	
-
+	AnySave.prototype.onGeo = function(lat, long, point) {
+		$.map(AnySave.prototype.listeners, function(o) {
+			var f = o;
+			f(lat, long, point);
+		});
+	}
+	
+	AnySave.prototype.addListenerGeo = function(func) {
+		
+		if(func != null) {
+			var f = eval("("+String(func)+")");
+			AnySave.prototype.listeners.push(f);
+		}
+	}
 
 
 	AnySave.prototype.save = function(params) {
@@ -1814,9 +1851,9 @@ function AnySave() {
 		var params = saveUtil.serializePage(params.formName, params.objAnywhere, params);
 		params["formulario_id"]    = this.formularioID;
 		params["formulario_alias"] = this.nombreModulo;
-		params["latitud"]     = AnySave.posLatitud;
-		params["longitud"]    = AnySave.posLongitud;
-		params["point"]   	  = AnySave.pointAddress;
+		params["latitud"]     = AnySave.prototype.posLatitud;
+		params["longitud"]    = AnySave.prototype.posLongitud;
+		params["point"]   	  = AnySave.prototype.pointAddress;
 		params["fotoUno"] = $("#hiddenFotoUno").val();
 		params["fotoDos"] = $("#hiddenFotoDos").val();
 		params["fotoTres"] = $("#hiddenFotoTres").val();
@@ -1825,7 +1862,7 @@ function AnySave() {
 		
 		var s = eval("("+String(params["success"])+")")
 		params["success"] = s;
-		console.log(params);
+		//console.log(params);
 		
 		var success2 = function(data,status,jqXHR, o) { 
 			var mensajeSave = null;
@@ -1907,53 +1944,93 @@ function AnySave() {
 	AnySave.prototype.getLastData = function(){
 		return $("#lastMessageSave").val();
 	}
+	
+	
+	
+	
 }
 
 function FunctionTool() {
 	
 }
 
-FunctionTool.evalFunction = function(func) {
+FunctionTool.evalFunction = function(func,a,b,c) {
 	if(func!=null) {
-		console.log("evalFunction()");
+		//console.log("evalFunction()");
 		if(typeof func == 'function') {
 			var f = func;
-			f();
+			f(a,b,c);
 		}
 	}
 };
-
-function Protocolo() {
-}
-
-Protocolo.guardaProtocolo = function(localJson) {
-	if(localJson==null) {
-		localJson = {};
+ 
+function Activity() {
+	Activity.prototype.getActivityLastVisita = function(selector, numberOfLastVisit) {
+		return Activity.prototype.getActivity(selector, 1);
 	}
 	
-	if(localJson.objAnywhere != null) { 
+	Activity.prototype.getActivityThisVisita = function(selector, numberOfLastVisit) {
+		return Activity.prototype.getActivity(selector, 0);
+	}
 	
-		 var any = new Anywhere();
-		 var vUrl = any.getWSAnywhere_context() + "services/alertasvarias/guardaprotocolo/";
-		 var anySave = new AnywhereManager();
-		 
-		 var idUsuario = sessionStorage.getItem("rutT");
- 		 var fSuccess = null;
- 		 if(localJson.success != null) {
- 			fSuccess=eval("("+localJson.success+")")
- 		 }
-		 anySave.save(vUrl,  { a1: idUsuario,
-				a2: objAnywhere.getCliente(),
-				a3: objAnywhere.getCadena(),
-				a4: objAnywhere.getLocal(),
-				a5: objAnywhere.getCategoria(),
-				a6: objAnywhere.getProducto(),
-				num_val1:localJson.moduloId,
-			},
-			function(data,status,jqXHR,fSuccess) { 
-				if(fSuccess != null) {
-					fSuccess(data,status,jqXHR);
-				}
+	
+	Activity.prototype.getActivity = function(selector, numberOfLastVisit) {
+			var login = new Login();
+			
+			login.getUsuario(function(usuario) {
+				var any = new Anywhere();
+				var user = new 
+				$.ajax({ 
+					type: "GET",
+					dataType:"json",
+					url: any.getWSAnywjere_contextEjeCore() + "EjeCoreI",
+					data: {
+						claseweb: "cl.imasd.view.sencha.anywhere.Conf",
+						modulo: "anywhere_movil_restanywhere",
+						thing:"Activity",
+						accion:"get",
+						usuario: JSON.stringify(usuario),
+						numberOfLastVisit: numberOfLastVisit
+					
+					},
+					dataType:"json",
+					crossDomain : true,
+					success : function(data) {
+						console.log(data);
+						
+					 	try {
+							 
+							
+					 
+							var html =  "<table align='middle' border='1' data-role='table'  data-mode='reflow' class='ui-responsive table-stroke'>"
+						
+							$.map(data.data, function(m) {
+								html+="   <tr> ";
+								if(m.type=="data") {
+									html+=" 		<td>" + m.name + "</td>";
+									html+=" 		<td>" + m.value + "</td>";
+								}
+								else if(m.type=="msg") {
+									html+=" 		<td colspan='2'>" + m.name + "</td>";
+								}
+								
+								html+="   </tr> ";
+							});
+							html+="</table> ";
+						
+							console.table(html);
+							$(selector).append(html);
+						}
+						catch(e){
+							console.log(e);
+						}
+					}
+				});
 			});
-	}
+
+			
+			
+			 
+		}
 }
+ 

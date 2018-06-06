@@ -60,6 +60,7 @@ $('#quiebrestock_principal').bind( 'pagebeforecreate',function(event) {
 $('#quiebrestock_principal').bind( 'pageshow',function(event) {
 	console.log("[pageshow] quiebrestock_promocion.js");
 	objAnywhere.loadClients();
+	/*
 	var any = new Anywhere();
 	$.ajax({ 
 		type: "GET",
@@ -88,6 +89,7 @@ $('#quiebrestock_principal').bind( 'pageshow',function(event) {
 			console.log("error : " + textStatus + "," + errorThrown);
 	    }
 	});
+	*/
 });
 
  
@@ -109,11 +111,7 @@ function saveQuiebre() {
 		createPhotoButton(2,true, true, "Foto Hoja");
 		createPhotoButton(3,true, true, "Foto Cabecera");
 		createPhotoButton(4,true, true, "Foto Cabecera");
-		
-		Protocolo.guardaProtocolo({
-			moduloId : 2,
-			objAnywhere:objAnywhere
-		});
+
 	}
 	
 	//internalSave3();

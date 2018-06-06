@@ -299,34 +299,42 @@ function ObjAnyWhereCCL_CP(paramJSON) {
 			return html;
 	};
 	
-	this.setProductosQuebrados = function(idUsuario, formularioId) {
+	this.setProductosQuebrados = function(formularioId) {
 		var map  = new MapSQL("PRESENCIA");
 		map.get("idregistro",function(value) {
+			var login = new Login();
+			var localJson = this.logStr;
 			
-			var any = new Anywhere();
-			
-			$.ajax({ 
-				type: "GET",
-				dataType:"json",
-				url: any.getWSAnywjere_contextEjeCore() + "EjeCoreI",
-				data :{
+			login.getUsuario(function(usuario) {
+				var any = new Anywhere();
+				
+				data = {
 					claseweb:"cl.imasd.view.sencha.anywhere.Conf",
 					modulo:"anywhere_movil_restanywhere.fides",
 					thing:"SeguimientoDeQuiebres",
 					accion : "get",
-					usuario : idUsuario,
+					usuario : JSON.stringify(usuario),
 					idPresencia : value.data,
 					formularioId: formularioId
-				},
-				dataType:"json",
-				crossDomain : true,
-				success: function(data,status,jqXHR) {
-					console.log("setProductosQuebrados 2");
-					
-					construyeOpciones(data);
-					 
-				}
+				};
+				
+				console.log(data);
+				$.ajax({ 
+					type: "GET",
+					dataType:"json",
+					url: any.getWSAnywjere_contextEjeCore() + "EjeCoreI",
+					data : data,
+					dataType:"json",
+					crossDomain : true,
+					success: function(data,status,jqXHR) {
+						console.log("setProductosQuebrados 2");
+						
+						construyeOpciones(data);
+						 
+					}
+				});
 			});
+			
 		});
 	}
 	/*

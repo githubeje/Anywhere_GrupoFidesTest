@@ -12,7 +12,7 @@ var login;
 	$("#login").live( "pageshow", function() {
 		setTimeout(function() {
 			iniciaLogin();
-		},1000);
+		},500);
 	});
 	
 	$( document ).live("#login", "pageinit", function() {
