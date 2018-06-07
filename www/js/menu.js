@@ -917,12 +917,9 @@ $("#menu_principal").bind("pageshow",function() {
 		});
 	});
 
-	
- 
-	
 	/*no funciona el DEBUG remoto de google con registraGCM activado*/
 	console.log("registraGCM()");
-	registraGCM();
+	//registraGCM();
 	//initDoMark();
 });
 

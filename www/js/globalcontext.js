@@ -752,6 +752,10 @@ function DeviceInfo() {
 	
 	this.getDeviceInfo = function(func) {
 		console.log("getDeviceInfo 1.1");
+		
+		
+		
+		
 		var info = {};
 	 
 		setTimeout(function() {
@@ -771,8 +775,34 @@ function DeviceInfo() {
 			    	console.log(e);
 			    }
 			    
-			    var f = func;
-			    f(info);
+			    var any = new Anywhere();
+				$.ajax({ 
+					type: "POST",
+					dataType:"json",
+					url: any.getWSAnywjere_contextEjeCore() + "EjeCoreI",
+					timeout:8000,
+					async: false,
+					data: { "claseweb":"cl.imasd.view.sencha.anywhere.Conf", 
+							"modulo":"anywhere_movil_restanywhere",
+							"thing":"VersionApp",
+							"accion":"get",
+							"info": "["+JSON.stringify(info)+"]"},
+					crossDomain : true,
+					success: function(data) {
+						
+						info["app_version_server"] = data.data[0].app_version_server
+					    info["app_build_server"] = data.data[0].app_build_server
+					    
+					    if(info["app_version"] != info["app_version_server"] ) {
+					    	console.log(info);
+					    } 
+					    	
+					    var f = func;
+					    f(info);
+					} 
+				});
+			    
+			    
 		},1000);
 	
 	}
