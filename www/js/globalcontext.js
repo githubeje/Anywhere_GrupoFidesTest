@@ -750,27 +750,31 @@ function DeviceInfo() {
 	
 	 
 	
-	this.getDeviceInfo = function() {
+	this.getDeviceInfo = function(func) {
+		console.log("getDeviceInfo 1.1");
 		var info = {};
 	 
-		 
-	    try { info["model"]  	= device.model 		} catch(e) { info["model"] = "-Error-" };
-	    try { info["cordova"]	= device.cordova 	} catch(e) { info["cordova"] = "-Error-" };
-	    try { info["platform"]  = device.platform 	} catch(e) { info["platform"] = "-Error-" };
-	    try { info["uuid"]  	= device.uuid 		} catch(e) { info["uuid"] = "-Error-" };
-	    try { info["version"]  	= device.version 	} catch(e) { info["version"] = "-Error-" };
-	    
-	    try {
-	    	info["app_version"] = AppVersion.version;
-		    info["app_build"] = AppVersion.build;	
-	    }
-	    catch(e) {
-	    	info["app_version"] = "";
-		    info["app_build"] = "";	
-	    	console.log(e);
-	    }
-	 
-	    return info;
+		setTimeout(function() {
+			 try { info["model"]  		= device.model 		} catch(e) { info["model"] = "-Error-" };
+			    try { info["cordova"]	= device.cordova 	} catch(e) { info["cordova"] = "-Error-" };
+			    try { info["platform"]  = device.platform 	} catch(e) { info["platform"] = "-Error-" };
+			    try { info["uuid"]  	= device.uuid 		} catch(e) { info["uuid"] = "-Error-" };
+			    try { info["version"]  	= device.version 	} catch(e) { info["version"] = "-Error-" };
+			    
+			    try {
+			    	info["app_version"] = AppVersion.version;
+				    info["app_build"] = AppVersion.build;	
+			    }
+			    catch(e) {
+			    	info["app_version"] = e.message;
+				    info["app_build"] = e.message;
+			    	console.log(e);
+			    }
+			    
+			    var f = func;
+			    f(info);
+		},1000);
+	
 	}
 }
 
