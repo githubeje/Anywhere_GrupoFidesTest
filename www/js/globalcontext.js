@@ -776,7 +776,9 @@ function DeviceInfo() {
 			    }
 			    
 			    if(getServerVersion) {
-			    	 var any = new Anywhere();
+			    	var login = new Login();
+					login.getUsuario(function(usuario) {
+						var any = new Anywhere();
 						$.ajax({ 
 							type: "POST",
 							dataType:"json",
@@ -787,17 +789,28 @@ function DeviceInfo() {
 									"modulo":"anywhere_movil_restanywhere",
 									"thing":"VersionApp",
 									"accion":"get",
-									"info": "["+JSON.stringify(info)+"]"},
+									"info": "["+JSON.stringify(info)+"]",
+									"usuario": JSON.stringify(usuario)
+							},
 							crossDomain : true,
 							success: function(data) {
 								
-								info["app_version_server"] = data.data[0].app_version_server
-							    info["app_build_server"] = data.data[0].app_build_server
+								info["app_version_server"] = data.data[0].app_version_server;
+							    info["app_build_server"] = data.data[0].app_build_server;
 							    
 							    var f = func;
 							    f(info);
-							} 
+							},
+							error : function() {
+								info["app_version_server"] = info["app_version"];
+							    info["app_build_server"] = info["app_build"];
+							    
+							    var f = func;
+							    f(info);
+							}
+						});
 					});
+			    	 
 			    }
 			    else {
 			    	 var f = func;
