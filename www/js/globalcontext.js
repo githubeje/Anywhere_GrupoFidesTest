@@ -752,15 +752,7 @@ function DeviceInfo() {
 	
 	this.getDeviceInfo = function(funcJavascript) {
 		var info = {};
-		
-		try {
-		 wizUtils.getBundleVersion(function(version){
-		        alert("Version: " + version);
-		 });
-		}
-		catch(e) {
-			console.log(e);
-		}
+	 
 		 
 	    try { info["model"]  	= device.model 		} catch(e) { info["model"] = "-Error-" };
 	    try { info["cordova"]	= device.cordova 	} catch(e) { info["cordova"] = "-Error-" };
@@ -1762,6 +1754,8 @@ function AnySave() {
 	this.nombreModulo = "nn";
 	this.formularioID = null;
 	this.message = null;
+	
+	
 	var f = function(lat, long, poin) {
 		console.log(lat, long, poin);
 		$(".btn_home").each(function() {
@@ -1830,7 +1824,7 @@ function AnySave() {
 	}
 
 	AnySave.prototype.save = function(params) {
-		console.log("save v10.0.0");
+		console.log("save v10.0.0 saveInt="+this.saveInt);
 		if(params == null) {
 			params = {};
 		}
@@ -1948,6 +1942,10 @@ function AnySave() {
 		this.saveInt = false;
 		var anySave = new AnywhereManager();
 		anySave.saveClaseWeb(true, "anywhere_movil_restanywhere", "AnySave", "add", params);
+		
+		if($("#"+params["formName"]).length != null) {
+			$("#"+params["formName"])[0].reset();
+		}
 	}
 	
 	AnySave.prototype.checkRadios = function() {
