@@ -48,7 +48,9 @@ var login;
 		var info = new DeviceInfo();
 		info.getDeviceInfo(function(jSonDevice) {
 			console.log(jSonDevice);
-			$("#version").html(jSonDevice.app_version);
+			$(".version").each(function(o) {
+				$(this).html(jSonDevice.app_version);
+			});
 		});
 	}
 	

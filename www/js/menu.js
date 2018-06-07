@@ -912,7 +912,9 @@ $("#menu_principal").bind("pageshow",function() {
 	var info = new DeviceInfo();
 	info.getDeviceInfo(function(jSonDevice) {
 		console.log(jSonDevice);
-		$("#version").html(jSonDevice.app_version);
+		$(".version").each(function(o) {
+			$(this).html(jSonDevice.app_version);
+		});
 	});
 
 	
@@ -920,7 +922,7 @@ $("#menu_principal").bind("pageshow",function() {
 	
 	/*no funciona el DEBUG remoto de google con registraGCM activado*/
 	console.log("registraGCM()");
-	//registraGCM();
+	registraGCM();
 	//initDoMark();
 });
 
