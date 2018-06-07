@@ -46,7 +46,7 @@ var login;
 		};
 	}
 	
-	document.addEventListener("deviceready", onDeviceReady, false);
+	//document.addEventListener("deviceready", onDeviceReady, false);
 	
 
 

@@ -753,6 +753,15 @@ function DeviceInfo() {
 	this.getDeviceInfo = function(funcJavascript) {
 		var info = {};
 		
+		try {
+		 wizUtils.getBundleVersion(function(version){
+		        alert("Version: " + version);
+		 });
+		}
+		catch(e) {
+			console.log(e);
+		}
+		 
 	    try { info["model"]  	= device.model 		} catch(e) { info["model"] = "-Error-" };
 	    try { info["cordova"]	= device.cordova 	} catch(e) { info["cordova"] = "-Error-" };
 	    try { info["platform"]  = device.platform 	} catch(e) { info["platform"] = "-Error-" };
@@ -1757,13 +1766,13 @@ function AnySave() {
 		console.log(lat, long, poin);
 		$(".btn_home").each(function() {
 			//console.log(this);
-			$(this).addClass("ui-icon-star").removeClass("ui-icon-home");
+			$(this).addClass("ui-icon-carat-l").removeClass("ui-icon-home").removeClass("ui-icon-delete");
 		});      
 		
 	}
 	
 	AnySave.prototype.listeners = [f];
-	setInterval(function() {
+	var check = function() {
 		var geo = new GeoGlobal();
 		geo.refreshGeo(function(lat, lo) {
 			AnySave.prototype.posLatitud = lat;
@@ -1785,7 +1794,12 @@ function AnySave() {
 				AnySave.prototype.onGeo(AnySave.prototype.posLatitud, AnySave.prototype.posLongitud,AnySave.prototype.pointAddress );
 			}
 		}); 
-	},1000);
+	}
+	
+	check();
+	setInterval(function() {
+		check();
+	},5000);
 	
 	
 	AnySave.prototype.onGeo = function(lat, long, point) {
@@ -2062,10 +2076,23 @@ function Activity() {
 					}
 				});
 			});
-
-			
-			
-			 
 		}
 }
- 
+
+function App() {
+	
+}
+ App.exit = function() {
+	 try {
+		 if (navigator.app) {
+		    navigator.app.exitApp();
+		 } else if (navigator.device) {
+		    navigator.device.exitApp();
+		 } else {
+		    window.close();
+		 }
+	 }
+	 catch(e){
+		 console.log(e);
+	 }
+ }
