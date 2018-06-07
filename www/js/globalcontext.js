@@ -765,6 +765,8 @@ function DeviceInfo() {
 		    info["app_build"] = AppVersion.build;	
 	    }
 	    catch(e) {
+	    	info["app_version"] = "";
+		    info["app_build"] = "";	
 	    	console.log(e);
 	    }
 	 

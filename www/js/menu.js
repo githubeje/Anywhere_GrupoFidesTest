@@ -265,6 +265,7 @@ var Menu = function() {
 			var rol = this.getRol(idrol);
 			var cliente = this.getCliente(idcliente);
 			console.log("CLIENTE:"+cliente);
+			console.log($.mobile.path.makeUrlAbsolute( "/images" ));
 			
 			if ( idmodulo == "1") {		 		
 				return this.addBoton_inout(activo, rol, cliente, jsonEnableButtons.inout, idmodulo);
