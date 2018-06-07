@@ -760,7 +760,7 @@ function DeviceInfo() {
 	    try { info["version"]  	= device.version 	} catch(e) { info["version"] = "-Error-" };
 	    
 	    try {
-	    	getAppVersion(function(version) {
+	    	cordova.getAppVersion(function(version) {
 	    			
 	    		info["app_version"] = version;
 	        	if(funcJavascript != null) {
@@ -1748,11 +1748,21 @@ function AnySave() {
 	this.stockImage = 'Sin Imagen';
 	AnySave.prototype.posLatitud = null;
 	AnySave.prototype.posLongitud = null;
+	
 	this.saveInt = false;
 	this.nombreModulo = "nn";
 	this.formularioID = null;
 	this.message = null;
-	AnySave.prototype.listeners = [];
+	var f = function(lat, long, poin) {
+		console.log(lat, long, poin);
+		$(".btn_home").each(function() {
+			//console.log(this);
+			$(this).addClass("ui-icon-star").removeClass("ui-icon-home");
+		});      
+		
+	}
+	
+	AnySave.prototype.listeners = [f];
 	
 	var geo = new GeoGlobal();
 	geo.refreshGeo(function(lat, lo) {
@@ -1791,10 +1801,32 @@ function AnySave() {
 		}
 	}
 
+	AnySave.prototype.getLatitud = function() {
+		return AnySave.prototype.posLatitud;
+	}
+	
+	AnySave.prototype.getLongitud = function() {
+		return AnySave.prototype.posLongitud;	
+	}
+	
+	AnySave.prototype.getPoint = function() {
+		return AnySave.prototype.pointAddress;	
+	}
 
 	AnySave.prototype.save = function(params) {
-		console.log("save v9.0.1");
-		if(!this.saveInt) {
+		console.log("save v10.0.0");
+		if(params == null) {
+			params = {};
+		}
+		
+		if(params.objAnywhere != null) {
+			if(!params.objAnywhere.isReady()) {
+				var mp = new MasterPopup();
+				mp.alert("Espere un momento.");
+			}
+		}
+		
+		if((this.saveInt == false)) {
 			this.saveInt = true;
 			if(params == null) {
 				params = {};
@@ -1825,7 +1857,6 @@ function AnySave() {
 			 
 			 if( fotosObligatoriasCargadas() ) {
 				 this.saveThree(params);	 
-				 this.saveInt = false;
 			 }
 			 else {
 				 this.saveInt = false;
@@ -1898,7 +1929,7 @@ function AnySave() {
 		
 		//params["success"] = success2;
 		
- 
+		this.saveInt = false;
 		var anySave = new AnywhereManager();
 		anySave.saveClaseWeb(true, "anywhere_movil_restanywhere", "AnySave", "add", params);
 	}
