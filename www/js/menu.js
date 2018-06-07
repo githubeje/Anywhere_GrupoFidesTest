@@ -909,10 +909,9 @@ $("#menu_principal").bind("pageshow",function() {
 	/*SHOW VERSION IN MENU*/
 	 
 	var info = new DeviceInfo();
-	var jSonDevice = info.getDeviceInfo(function(jSonDevice) {
-		console.log(jSonDevice);
-		$("#version").html(jSonDevice.app_version);
-	});
+	var jSonDevice = info.getDeviceInfo();
+	console.log(jSonDevice);
+	$("#version").html(jSonDevice.app_version);
  
 	
 	/*no funciona el depurar remoto de google con registraGCM activado*/

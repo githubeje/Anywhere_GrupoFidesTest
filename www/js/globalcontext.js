@@ -750,7 +750,7 @@ function DeviceInfo() {
 	
 	 
 	
-	this.getDeviceInfo = function(funcJavascript) {
+	this.getDeviceInfo = function() {
 		var info = {};
 	 
 		 
@@ -761,31 +761,13 @@ function DeviceInfo() {
 	    try { info["version"]  	= device.version 	} catch(e) { info["version"] = "-Error-" };
 	    
 	    try {
-	    	Device.getInfo(function(version) {
-	    			
-	    		info["app_version"] = version;
-	        	if(funcJavascript != null) {
-	        		var f = eval(funcJavascript);
-	        		f(info);
-	        	}
-	        });	
-	       
+	    	info["app_version"] = AppVersion.version;
+		    info["app_build"] = AppVersion.build;	
 	    }
 	    catch(e) {
-	    	info["app_version"] =  e;
-	    	if(funcJavascript != null) {
-        		var f = eval(funcJavascript);
-        		f(info);
-        	}
+	    	console.log(e);
 	    }
-	    
-	    if(info["model"] == null 	   || info["model"] == undefined) { info["model"] = "-Error-" }
-	    if(info["cordova"] == null 	   || info["cordova"] == undefined) { info["cordova"] = "-Error-" }
-	    if(info["platform"] == null    || info["platform"] == undefined) { info["platform"] = "-Error-" }
-	    if(info["uuid"] == null 	   || info["uuid"] == undefined) { info["uuid"] = "-Error-" }
-	    if(info["version"] == null 	   || info["version"] == undefined) { info["version"] = "-Error-" }
-	    if(info["app_version"] == null || info["app_version"] == undefined) { info["app_version"] = "-Error-" }
-	    
+	 
 	    return info;
 	}
 }
