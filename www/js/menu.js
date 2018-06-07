@@ -910,7 +910,7 @@ $("#menu_principal").bind("pageshow",function() {
 	/*SHOW VERSION IN MENU*/
 	 
 	var info = new DeviceInfo();
-	info.getDeviceInfo(function(jSonDevice) {
+	info.getDeviceInfo(true,function(jSonDevice) {
 		console.log(jSonDevice);
 		$(".version").each(function(o) {
 			$(this).html(jSonDevice.app_version);
