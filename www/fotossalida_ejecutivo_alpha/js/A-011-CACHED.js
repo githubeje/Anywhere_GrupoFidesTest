@@ -29,7 +29,7 @@ createPhotoButton(2,true, true, "Foto Hoja");
 createPhotoButton(3,true, true, "Foto Cabecera");
 createPhotoButton(4,true, true, "Foto Cabecera");
 
-var anySaveObject = new AnySave();
+//var anySaveObject = new AnySave();
 
 $('#quiebrestock_principal').bind( 'pagebeforecreate',function(event) {
 	if(objAnywhere == null) {

@@ -29,7 +29,7 @@ createPhotoButton(2,true, true, "Foto Pasillo");
 createPhotoButton(3,true, true, "Foto a ocultar");
 createPhotoButton(4,true, true, "Foto a ocultar");
 
-var anySaveObject = new AnySave();
+//var anySaveObject = new AnySave();
  
 
 $('#quiebrestock_principal').bind( 'pagebeforecreate',function(event) {

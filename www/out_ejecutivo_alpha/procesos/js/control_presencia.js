@@ -28,7 +28,7 @@ var idCliente = [];
 var idCadena = [];
 var idLocal = [];
 
-var anySaveObject = new AnySave();
+//var anySaveObject = new AnySave();
 
 $("#principal").live("pageshow",function() {
  

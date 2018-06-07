@@ -1763,28 +1763,30 @@ function AnySave() {
 	}
 	
 	AnySave.prototype.listeners = [f];
+	setInterval(function() {
+		var geo = new GeoGlobal();
+		geo.refreshGeo(function(lat, lo) {
+			AnySave.prototype.posLatitud = lat;
+			AnySave.prototype.posLongitud = lo;
+			//console.log(AnySave.prototype.posLatitud + ","+ AnySave.prototype.posLongitud);
+			
+			if(AnySave.prototype.posLatitud !== null && 
+			   AnySave.prototype.posLongitud !== null && 
+			   AnySave.prototype.pointAddress !== null) {
+				AnySave.prototype.onGeo(AnySave.prototype.posLatitud, AnySave.prototype.posLongitud,AnySave.prototype.pointAddress );
+			}
+		}, function(point) {
+			AnySave.prototype.pointAddress = point;
+			//console.log(AnySave.prototype.pointAddress);
+			
+			if(AnySave.prototype.posLatitud !== null && 
+			   AnySave.prototype.posLongitud !== null && 
+			   AnySave.prototype.pointAddress !== null) {
+				AnySave.prototype.onGeo(AnySave.prototype.posLatitud, AnySave.prototype.posLongitud,AnySave.prototype.pointAddress );
+			}
+		}); 
+	},1000);
 	
-	var geo = new GeoGlobal();
-	geo.refreshGeo(function(lat, lo) {
-		AnySave.prototype.posLatitud = lat;
-		AnySave.prototype.posLongitud = lo;
-		//console.log(AnySave.prototype.posLatitud + ","+ AnySave.prototype.posLongitud);
-		
-		if(AnySave.prototype.posLatitud !== null && 
-		   AnySave.prototype.posLongitud !== null && 
-		   AnySave.prototype.pointAddress !== null) {
-			AnySave.prototype.onGeo(AnySave.prototype.posLatitud, AnySave.prototype.posLongitud,AnySave.prototype.pointAddress );
-		}
-	}, function(point) {
-		AnySave.prototype.pointAddress = point;
-		//console.log(AnySave.prototype.pointAddress);
-		
-		if(AnySave.prototype.posLatitud !== null && 
-		   AnySave.prototype.posLongitud !== null && 
-		   AnySave.prototype.pointAddress !== null) {
-			AnySave.prototype.onGeo(AnySave.prototype.posLatitud, AnySave.prototype.posLongitud,AnySave.prototype.pointAddress );
-		}
-	});
 	
 	AnySave.prototype.onGeo = function(lat, long, point) {
 		$.map(AnySave.prototype.listeners, function(o) {

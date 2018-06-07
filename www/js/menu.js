@@ -17,6 +17,7 @@ var destinationType;
 var facingImage = "";
 var registred = false;
 
+var anySaveObject = new AnySave();
 
 var Menu = function() {
 	this.loadZonas = function() {
@@ -909,6 +910,7 @@ $("#menu_principal").bind("pageshow",function() {
 	 
 	var info = new DeviceInfo();
 	var jSonDevice = info.getDeviceInfo(function(jSonDevice) {
+		console.log(jSonDevice);
 		$("#version").html(jSonDevice.app_version);
 	});
  
