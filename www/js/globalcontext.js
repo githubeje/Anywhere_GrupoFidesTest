@@ -760,7 +760,7 @@ function DeviceInfo() {
 	    try { info["version"]  	= device.version 	} catch(e) { info["version"] = "-Error-" };
 	    
 	    try {
-	    	cordova.getAppVersion(function(version) {
+	    	Device.getInfo(function(version) {
 	    			
 	    		info["app_version"] = version;
 	        	if(funcJavascript != null) {
